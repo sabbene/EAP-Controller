@@ -8,23 +8,18 @@ EAP Controller - https://www.tp-link.com/common/Spotlight/EAP_controller.html
 
 
 
-Running on the latest Phusion release (ubuntu 16.04), with EAP Controller v2.5.3
-ONLY X86!!!!!
-
 
 **Pull image**
 
 ```
-docker pull mace/eap-controller
+docker pull sabbene/tp-eap-controller:latest
 ```
 
 **Run container**
 
 ```
-docker run -d --net="host" --privileged --name=<container name> -v <path for eap config files>:/config -v /etc/localtime:/etc/localtime:ro mace/eap-controller
+docker run -d --net="host" --privileged --name=<container name> -v <path for eap config files>:/config -v /etc/localtime:/etc/localtime:ro sabbene/tp-eap-controller:latest
 ```
-Please replace all user variables in the above command defined by <> with the correct values.
-Use --net="host" or --net="macvlan0"
 
 **Web-UI**
 
@@ -33,11 +28,10 @@ http://<host ip>:8088
 https://<host ip>:8043
 ```
 
-
 **Example**
 
 ```
-docker run -d --net="host"  --privileged --name=eapcontroller -v /mylocal/directory/fordata:/config -v /etc/localtime:/etc/localtime:ro mace/eap-controller
+docker run -d --net="host"  --privileged --name=eapcontroller -v /mylocal/directory/fordata:/config -v /etc/localtime:/etc/localtime:ro sabbene/tp-eap-controller:latest
 ```
 
 
@@ -54,6 +48,9 @@ docker run -d --net="host"  --privileged --name=eapcontroller -v /mylocal/direct
 
 **Change notes**
 
+* 2019.03.02
+Forked from  mace/eap-controller
+Changed to use debian:stable-slim
 
 * 2018.11.29
 Upgrade to latest EAP-Controller (3.0.5)
