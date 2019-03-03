@@ -10,6 +10,7 @@ usermod -g 100 nobody
 usermod -d /home nobody
 chown -R nobody:users /home
 
+mkdir /etc/my_init.d/
 
 # Disable SSH
 rm -rf /etc/service/sshd /etc/my_init.d/00_regen_ssh_host_keys.sh

@@ -1,6 +1,14 @@
 # Builds a docker image for TP-Link´s  EAP Controller
-From phusion/baseimage:latest
-MAINTAINER Mace Capri <macecapri@gmail.com>
+From debian:stable-slim
+#From openjdk:latest
+MAINTAINER sabbene@0hy.es
+
+###############################################
+##                UPDATE                     ##
+###############################################
+
+RUN apt-get update && apt-get install -y locales apt-utils && apt-get upgrade -y && rm -rf /var/lib/apt/lists/* \
+    && localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
 
 
 ###############################################
@@ -8,10 +16,7 @@ MAINTAINER Mace Capri <macecapri@gmail.com>
 ###############################################
 # Set correct environment variables
 ENV DEBIAN_FRONTEND noninteractive
-ENV HOME="/root" LC_ALL="C.UTF-8" LANG="en_US.UTF-8" LANGUAGE="en_US.UTF-8"
 
-# Use baseimage-docker's init system
-CMD ["/sbin/my_init"]
 
 ###############################################
 ##   INTALL ENVIORMENT, INSTALL OPENVPN      ##
@@ -23,6 +28,10 @@ RUN chmod +x /tmp/install.sh && sleep 1 && /tmp/install.sh && rm /tmp/install.sh
 ###############################################
 ##             PORTS AND VOLUMES             ##
 ###############################################
+
+COPY start.sh /tmp/
+RUN chmod +x /tmp/start.sh
+CMD /tmp/start.sh
 
 #expose 8088/tcp
 VOLUME /config
